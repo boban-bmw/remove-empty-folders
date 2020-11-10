@@ -9,7 +9,6 @@ import (
 )
 
 type node struct {
-	fileInfo os.FileInfo
 	path     string
 	children []node
 	empty    bool
@@ -63,8 +62,7 @@ func createTree(n *node) {
 
 	for _, file := range files {
 		childNode := node{
-			fileInfo: file,
-			path:     filepath.Join(n.path, file.Name()),
+			path: filepath.Join(n.path, file.Name()),
 		}
 
 		if file.IsDir() {
@@ -78,6 +76,7 @@ func createTree(n *node) {
 	for _, child := range n.children {
 		if !child.empty {
 			n.empty = false
+			break
 		}
 	}
 }
